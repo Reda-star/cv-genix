@@ -31,7 +31,7 @@ export default function Basic({
                   <h3 className="text-lg leading-5 font-medium text-zinc-900 dark:text-white">
                     {name}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400 text-justify break-all">
                     {title}
                   </p>
                 </div>
@@ -40,14 +40,14 @@ export default function Basic({
                 <h4 className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 tracking-wider uppercase">
                   Contact
                 </h4>
-                <div className="mt-2 space-y-2">
-                  <p className="text-zinc-900 dark:text-white text-xs">
+                <div className="mt-2 space-y-2 ">
+                  <p className="text-zinc-900 dark:text-white text-xs break-all">
                     {phone}
                   </p>
-                  <p className="text-zinc-900 dark:text-white text-xs ">
+                  <p className="text-zinc-900 dark:text-white text-xs break-all">
                     {email}
                   </p>
-                  <p className="text-zinc-900 dark:text-white text-xs">
+                  <p className="text-zinc-900 dark:text-white text-xs break-all">
                     {city}
                   </p>
                 </div>

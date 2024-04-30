@@ -19,7 +19,7 @@ export const fetchWorkExperience = (data) => {
   // Define possible field names for each attribute
   const possibleTitleKeys = ['title', 'position', 'responsibility', 'perfection','job_title'];
   const possibleCompanyKeys = ['company', 'companyName', 'organization'];
-  const possibleYearKeys = ['year', 'years', 'startYear','years_worked', 'endYear', 'start_date','start_year', 'endDate', 'beginYear', 'finishYear','date'];
+  const possibleYearKeys = ['year', 'years', 'startYear','years_worked', 'endYear', 'start_date','start_year', 'endDate', 'beginYear', 'finishYear','date','duration'];
   const possibleDescriptionKeys = ['description', 'overview', 'showcase','responsibilities'];
 
   // Add more possible field names as needed

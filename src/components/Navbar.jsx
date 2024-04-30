@@ -1,4 +1,6 @@
+
 import Logo from "/src/assets/applogo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -62,20 +64,22 @@ const Navbar = () => {
 
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
-                <a
+                <Link to="/login">
+                <button
                   className="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
-                  href="#"
-                >
+                  >
                   Login
-                </a>
+                </button>
+                  </Link>
 
                 <div className="hidden sm:flex">
-                  <a
+                  <Link to="/signup">
+                  <button
                     className="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
-                    href="#"
-                  >
-                    Register
-                  </a>
+                    >
+                    Sign up
+                  </button>
+                    </Link>
                 </div>
               </div>
 

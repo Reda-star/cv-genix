@@ -9,6 +9,7 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
   const [summaryLocal, setSummaryLocal] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState("short");
 
   let blurTimeout;
 
@@ -36,6 +37,9 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
     }, 1000);
   };
 
+  const handleClick = (option) => {
+    setSelectedStyle(option);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -56,29 +60,39 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
     fetchData();
   }, [setSummary]);
 
- 
-// Generate a professional and short summary in 3 lines for ${name}, a ${title} that is skilled in ${skills.join(", ")} add also his name in the summary like it's introducing itself, if there's no skills it's fine you can create the summary only from the job title
-
+  
   const generateSummary = async () => {
     setIsLoading(true);
     try {
+      const skillsString = skills.map((skillObj) => skillObj.skill).join(", ");
 
-      const skillsString = skills.map(skillObj => skillObj.skill).join(', ');
+      const worksString = works.map((work) => work.companyName).join(", ");
 
-      const worksString = works.map(work => work.companyName).join(', ');
+      const positionString = works.map((work) => work.position).join(", ");
 
-      const positionString = works.map(work => work.position).join(', ');
-
-
-      const prompt = `Generate a professional and short summary in 5 lines for ${name}, a ${title} that is skilled in ${skillsString}, and worked with ${worksString} as a ${positionString}, add also his name in the summary like it's introducing itself, if there's no skills or no name it's fine you can create the summary only from the job title without mentioning the name.`;
+      let prompt = '';
+    switch (selectedStyle) {
+      case 'short':
+        prompt = `In a succinct way, summarize ${name}'s career as a ${title}, highlighting skills in ${skillsString} and experience at ${worksString}. If no skills or name are provided, focus on the job title`;
+        break;
+      case 'balanced':
+        prompt = `Provide a balanced summary of ${name}'s career as a ${title}. Highlight their skills in ${skillsString}, experience at ${worksString}, and their roles as ${positionString}. If no skills or name are provided, focus on the job title and experience.`;
+        break;
+      case 'creative':
+        prompt = `Craft a creative and engaging summary for ${name}, a ${title} wizard, who weaves magic with their skills in ${skillsString}, and has left a mark at ${worksString} in the role of ${positionString}. If no skills or name are provided, create a captivating narrative around the job title.`;
+        break;
+      default:
+        // default case
+        break;
+    }
+      
       console.log(prompt);
 
-      const response = await axios.post("http://localhost:5000/summary",{
-          prompt: prompt,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/summary", {
+        prompt: prompt,
+      });
       const { data } = response;
-      
+
       // Displaying generated summary word by word
       const words = data.summary.split(" ");
       let displayText = "";
@@ -88,7 +102,6 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
         setSummaryLocal(displayText);
         setSummary(displayText);
       }
-      
     } catch (error) {
       console.error("Error generating summary:", error);
     }
@@ -127,14 +140,49 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
 
         <textarea
           className="w-full h-24 border border-gray-300 rounded-md resize-y p-2"
-          style={{ minHeight: "150px" }}
+          style={{ minHeight: "180px" }}
           value={summaryLocal}
           onFocus={handleTextAreaFocus}
           onBlur={handleTextAreaBlur}
           onChange={handleInputChange}
           placeholder="Enter your professional summary..."
         ></textarea>
-        <div className="flex justify-end">
+        <div className="flex justify-between">
+          <div className="flex rounded-2xl border-gray-400 border">
+            <button
+              type="button"
+              className={`font-medium text-sm px-4 py-2 rounded-l-2xl ${
+                selectedStyle === "short"
+                  ? "bg-blue-700 text-white"
+                  : "bg-gray-50 text-black"
+              }`}
+              onClick={() => handleClick("short")}
+            >
+              Short
+            </button>
+            <button
+              type="button"
+              className={`font-medium text-sm px-4 py-2 ${
+                selectedStyle === "balanced"
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-50 text-black"
+              }`}
+              onClick={() => handleClick("balanced")}
+            >
+              Balanced
+            </button>
+            <button
+              type="button"
+              className={`font-medium text-sm px-4 py-2 rounded-r-2xl ${
+                selectedStyle === "creative"
+                  ? "bg-purple-700 text-white"
+                  : "bg-gray-50 text-black"
+              }`}
+              onClick={() => handleClick("creative")}
+            >
+              Creative
+            </button>
+          </div>
           {isLoading ? (
             <LoadingAIButton />
           ) : (
