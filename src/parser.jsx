@@ -4,12 +4,29 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+
 
 function Parser() {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const { isAuthenticated, login } = useKindeAuth();
+
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      if (!isAuthenticated) {
+        // If not authenticated, trigger the login process
+        login();
+      }
+    }
+
+    checkAuthentication();
+  }, [isAuthenticated, login]); // Trigger the effect when the isAuthenticated state changes
+
 
   useEffect(() => {
     // Check if a file is selected and start parsing
@@ -113,6 +130,7 @@ function Parser() {
   
     </div>
   </div>
+
 </div>
 )}
 {error && <p className="text-red-500">{error}</p>}

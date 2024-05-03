@@ -2,8 +2,17 @@ import Navbar from "./components/Navbar";
 import Typewriter from "typewriter-effect";
 import { Link } from "react-router-dom";
 import Botassistant from "/src/assets/botassistant.jpg";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import LoadingPage from "./components/LoadingPage";
+
 
 const Landing = () => {
+
+  const { isLoading, user, isAuthenticated } = useKindeAuth();
+
+  if (isLoading) {
+		return <LoadingPage/>;
+	}
   return (
     <>
       <Navbar />
@@ -18,8 +27,11 @@ const Landing = () => {
               />
             </div>
 
-            <div className="lg:py-24">
-              <h2 className="text-3xl font-bold sm:text-4xl">
+            <div className="lg:py-24 ">
+            {isAuthenticated ? (
+                  <>
+                    <h1 className="text-3xl font-bold sm:text-4xl mb-3">Hi, {user.family_name}</h1> 
+              <h2 className="text-2xl font-bold sm:text-2xl">
                 <Typewriter
                   options={{
                     strings: [
@@ -31,6 +43,23 @@ const Landing = () => {
                   }}
                 />
               </h2>
+                  </>
+                ) : (
+                  <>
+              <h2 className="text-3xl font-bold sm:text-3xl">
+                <Typewriter
+                  options={{
+                    strings: [
+                      "Create a Stunning CV with Ease",
+                      "Transform your Career with AI",
+                    ],
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
+              </h2>
+                  </>
+                )}
 
               <p className="mt-4 text-gray-600 ">
                 CVGenix is the ultimate tool for effortlessly creating a
@@ -48,6 +77,7 @@ const Landing = () => {
               </Link>
             </div>
           </div>
+          
         </div>
       </section>
     </>

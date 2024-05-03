@@ -7,7 +7,7 @@ const EducationData = (data) => {
   // Define possible field names for each education data point
   const institutionField = ['university', 'school', 'institution','college'];
   const degreeTitleField = ['degree', 'title', 'course'];
-  const startDateField = ['startDate', 'start', 'year', 'begin','graduation_year', 'dates_attended','dates'];
+  const startDateField = ['startDate', 'start', 'year', 'begin','graduation_year', 'dates_attended','dates','duration'];
   
     let education = null;
   

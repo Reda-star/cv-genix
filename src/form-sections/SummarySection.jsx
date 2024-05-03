@@ -79,14 +79,13 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
         prompt = `Provide a balanced summary of ${name}'s career as a ${title}. Highlight their skills in ${skillsString}, experience at ${worksString}, and their roles as ${positionString}. If no skills or name are provided, focus on the job title and experience.`;
         break;
       case 'creative':
-        prompt = `Craft a creative and engaging summary for ${name}, a ${title} wizard, who weaves magic with their skills in ${skillsString}, and has left a mark at ${worksString} in the role of ${positionString}. If no skills or name are provided, create a captivating narrative around the job title.`;
+        prompt = `Craft a long and creative and engaging summary for ${name}, a ${title} genius, who weaves magic with their skills in ${skillsString}, and has left a mark at ${worksString} in the role of ${positionString}. If no skills or name are provided, create a captivating narrative around the job title.`;
         break;
       default:
         // default case
         break;
     }
       
-      console.log(prompt);
 
       const response = await axios.post("http://localhost:5000/summary", {
         prompt: prompt,
@@ -174,11 +173,11 @@ const SummarySection = ({ setSummary, name, title, skills, works }) => {
             <button
               type="button"
               className={`font-medium text-sm px-4 py-2 rounded-r-2xl ${
-                selectedStyle === "creative"
+                selectedStyle === "long"
                   ? "bg-purple-700 text-white"
                   : "bg-gray-50 text-black"
               }`}
-              onClick={() => handleClick("creative")}
+              onClick={() => handleClick("long")}
             >
               Creative
             </button>

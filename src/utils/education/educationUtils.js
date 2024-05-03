@@ -6,7 +6,7 @@ const parseEducationData = (data) => {
   const institutionFieldNames = ['university', 'school', 'institution', 'college'];
   // eslint-disable-next-line no-unused-vars
   const degreeTitleFieldNames = ['degree', 'title', 'course'];
-  const startDateFieldNames = ['startDate', 'start', 'year', 'begin'];
+  const startDateFieldNames = ['startDate', 'start', 'year', 'begin', 'duration'];
 
   let educationData = null;
 

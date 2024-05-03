@@ -1,8 +1,9 @@
-
 import Logo from "/src/assets/applogo.png";
-import { Link } from "react-router-dom";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 const Navbar = () => {
+  const { login, register, logout, isAuthenticated, user } = useKindeAuth();
+
   return (
     <>
       <header className="bg-white">
@@ -48,7 +49,6 @@ const Navbar = () => {
                       Contact
                     </a>
                   </li>
-
                   <li>
                     <a
                       className="text-gray-500 transition hover:text-gray-500/75"
@@ -63,24 +63,39 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="sm:flex sm:gap-4">
-                <Link to="/login">
-                <button
-                  className="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
-                  >
-                  Login
-                </button>
-                  </Link>
-
-                <div className="hidden sm:flex">
-                  <Link to="/signup">
-                  <button
-                    className="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+              <div className="flex gap-x-3 sm:flex sm:gap-4">
+                {isAuthenticated ? (
+                  <>
+                    <img
+                      src={user.picture}
+                      alt="User profile"
+                      className="rounded-full h-10 w-10"
+                    />
+                    <button
+                      onClick={logout}
+                      className="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
                     >
-                    Sign up
-                  </button>
-                    </Link>
-                </div>
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={login}
+                      className="inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
+                    >
+                      Login
+                    </button>
+                    <div className="hidden sm:flex">
+                      <button
+                        onClick={register}
+                        className="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+                      >
+                        Sign up
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="block md:hidden">

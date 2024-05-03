@@ -5,12 +5,13 @@ import { fetchTitleFromData } from '../utils/personalInfo/jobTitleUtils';
 import { fetchEmailFromData } from '../utils/personalInfo/emailUtils';
 import { fetchPhoneFromPersonalInfo } from '../utils/personalInfo/phoneUtils';
 import { fetchCityFromData } from '../utils/personalInfo/cityUtils';
+import { fetchAddressFromData } from '../utils/personalInfo/addressUtils';
 
 
 
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const InfoSection = ({ setName, setEmail, setPhone, setTitle, setCity, setImageSrc }) => {
+const InfoSection = ({ setName, setEmail, setPhone, setTitle, setCity, setAddress, setImageSrc }) => {
  
 
 const [nameInput, setNameInput] = useState('');
@@ -18,6 +19,8 @@ const [emailInput, setEmailInput] = useState('');
 const [phoneInput, setPhoneInput] = useState('');
 const [titleInput, setTitleInput] = useState('');
 const [cityInput, setCityInput] = useState('');
+const [addressInput, setAddressInput] = useState('');
+
 // eslint-disable-next-line no-unused-vars
 const [imageSrc, setImageFile] = useState(null);
 
@@ -50,14 +53,17 @@ useEffect(() => {
       setTitleInput(fetchTitleFromData(data) || ''); // Set fetched title to input value
       setCity(fetchCityFromData(data) || ''); // Set fetched city to state
       setCityInput(fetchCityFromData(data) || ''); // Set fetched city to input value
-      // Add more fields as needed
+      setAddress(fetchAddressFromData(data) || '');
+      setAddressInput(fetchAddressFromData(data) || '');
+
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
   fetchData();
-}, [setName, setEmail, setPhone, setTitle, setCity]);
+}, [setName, setEmail, setPhone, setTitle, setCity, setAddress]);
 
 
 const handleNameChange = (e) => {
@@ -89,6 +95,13 @@ const handleCityChange = (e) => {
   setCity(newCity);
   setCityInput(newCity);
 };
+
+const handleAddressChange = (e) => {
+  const newAddress = e.target.value;
+  setAddress(newAddress);
+  setAddressInput(newAddress)
+};
+
 
   return (
     <>
@@ -134,7 +147,7 @@ const handleCityChange = (e) => {
   </div>
   <div>
     <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-    <input type="text" id="address" name="address" placeholder='Enter your Address' className="mt-1 p-2 border border-gray-300 rounded-xl w-full" />
+    <input type="text" id="address" name="address" value={addressInput} onChange={handleAddressChange} placeholder='Enter your Address' className="mt-1 p-2 border border-gray-300 rounded-xl w-full" />
   </div>
   <div>
     <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>

@@ -8,6 +8,7 @@ export default function Basic({
   title,
   city,
   summary,
+  address,
   skills,
   languages,
   works,
@@ -46,6 +47,9 @@ export default function Basic({
                   </p>
                   <p className="text-zinc-900 dark:text-white text-xs break-all">
                     {email}
+                  </p>
+                  <p className="text-zinc-900 dark:text-white text-xs break-all">
+                    {address}
                   </p>
                   <p className="text-zinc-900 dark:text-white text-xs break-all">
                     {city}
